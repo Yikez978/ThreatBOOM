@@ -8,6 +8,7 @@ import {
   Marker,
 } from "react-simple-maps"
 import { scaleLinear } from 'd3-scale'
+import ReactTooltip from "react-tooltip"
 
 const wrapperStyles = {
     width: "100%",
@@ -32,6 +33,7 @@ constructor() {
     this.fetchCountries = this.fetchCountries.bind(this)
     this.handleZoomIn = this.handleZoomIn.bind(this)
     this.handleZoomOut = this.handleZoomOut.bind(this)
+    this.handleCountryClick = this.handleCountryClick.bind(this)
   }
 
   handleZoomIn() {
@@ -48,7 +50,15 @@ constructor() {
 
   componentDidMount() {
       this.fetchCountries()
+      setTimeout(() => {
+      ReactTooltip.rebuild()
+    }, 100)
   }
+
+handleCountryClick(marker, event) {
+    ReactTooltip.show(this.refs.foo)
+}
+
 
   fetchCountries() {
         fetch('/countries')
@@ -62,10 +72,10 @@ constructor() {
 render() {
     return (
         <div>
+        <div style={wrapperStyles}>
         <button onClick={ this.handleZoomIn }>{ "Zoom in" }</button>
         <button onClick={ this.handleZoomOut }>{ "Zoom out" }</button>
         <hr />  
-     <div style={wrapperStyles}>
         <ComposableMap
           projectionConfig={{ scale: 205 }}
           width={980}
@@ -82,6 +92,7 @@ render() {
                   geography.id !== "ATA" && (
                     <Geography
                       key={i}
+                      data-tip={geography.properties.name}
                       geography={geography}
                       projection={projection}
                       style={{
@@ -110,8 +121,12 @@ render() {
             <Markers>
               {
                 this.state.countries.map((country, i) => (
-                  <Marker key={i} marker={getCoordsForCountry(country.country)}>
-                    <circle
+                  <Marker 
+                  key={i} 
+                  onClick={this.handleCountryClick}
+                  marker={getCoordsForCountry(country.country)}
+                  >
+                    <circle           
                       cx={0}
                       cy={0}
                       r={cityScale(country.count)}
@@ -125,6 +140,8 @@ render() {
             </Markers>
           </ZoomableGroup>
         </ComposableMap>
+        
+         <ReactTooltip />
       </div>   
       </div>
     )
@@ -132,22 +149,24 @@ render() {
 }
 
 
+
+
 function getCoordsForCountry(country) {
-    console.log(country);
     // https://gist.github.com/sindresorhus/1341699 bless
     switch(country) {
-        case "US": return { coordinates: [-76.56631, 39.281049] }
-        case "DE": return { coordinates: [9.00, 51.00] }
-        case "RU": return { coordinates: [100.00, 60.00] }
-        case "NL": return { coordinates: [5.750, 52.500] }
-        case "IT": return { coordinates: [12.8333, 42.8333] }
-        case "GB": return { coordinates: [-2.00, 54.00] }
-        case "CN": return { coordinates: [105.00, 35.00] }
-        case "FR": return { coordinates: [2.00, 46.00] }
-        case "PL": return { coordinates: [20.00, 52.00] }
-        case "TR": return { coordinates: [35.00, 39.00] }
+        case "US": return { name:'United States', coordinates: [-76.56631, 39.281049] }
+        case "DE": return { name: "Germany", coordinates: [11.00, 51.00] }
+        case "RU": return { name: "Russia", coordinates: [100.00, 60.00] }
+        case "NL": return { name: "Netherlands", coordinates: [5.750, 52.500] }
+        case "IT": return { name: "Italty", coordinates: [12.8333, 42.8333] }
+        case "GB": return { name: "United Kingdom", coordinates: [-2.00, 54.00] }
+        case "CN": return { name: "China", coordinates: [105.00, 35.00] }
+        case "FR": return { name: "France", coordinates: [2.00, 46.00] }
+        case "PL": return { name: "Poland", coordinates: [20.00, 52.00] }
+        case "TR": return { name: "Turkey", coordinates: [35.00, 39.00] }
         default: return { coordinates: [40, -70 ]} 
     }
 }
+
 
 export default WorldMap

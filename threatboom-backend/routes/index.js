@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
 
 // Called by our Feed Component to grab data to reuse later.
 router.get('/feed', function (req, res, next) {
+  if(storedFeedData == undefined || storedFeedData == null) {
     getFeedData()
     .then((response) => {
       res.status(200).send();
@@ -25,6 +26,9 @@ router.get('/feed', function (req, res, next) {
       console.log(error);
       res.status(500).send(error);
     })
+  } else {
+    res.status(200).send();
+  }
 });
 
 

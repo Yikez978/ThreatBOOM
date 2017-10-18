@@ -17,10 +17,28 @@ module.exports = {
     THREAT,
     MALWARE,
     COUNTRY,
+    toJson: function(data) {
+        if(typeof data !== 'undefined' && data != null) {
+            let jsonData = [];
+            for(var i = 0; i < data.length; i++) {
+                jsonData.push({
+                    "first_seen" : data[i][FIRSTSEEN],
+                    "threat" : data[i][THREAT],
+                    "malware" : data[i][MALWARE],
+                    "host" : data[i][HOST],
+                    "url" : data[i][URL],
+                    "status" : data[i][STATUS],
+                    "registrar" : data[i][IP],
+                    "asn" : data[i][ASN],
+                    "country" : data[i][COUNTRY]
+                })
+            }
+            return jsonData;
+        }
+    },
     findTopTen: function (category, data) {
         if (category != null && category != undefined && data != null && data != undefined) {
 
-            // count all occurances of country codes appearing
             let map = new HashMap();
             for (var i = 0; i < data.length; i++) {
                 if (!isEmpty(data[i][category])) {
@@ -32,7 +50,7 @@ module.exports = {
                     }
                 }
             }
-            // get top results from category
+
             let result = new HashMap();
             let length = 0;
             if(data.length > 10) {
@@ -40,6 +58,8 @@ module.exports = {
             } else {
                 length = data.length;
             }
+
+        // get top results from category
             for (var i = 0; i < length; i++) {
                 let data = findMaxKey(map)
                 if(data != "N/A")
@@ -50,7 +70,7 @@ module.exports = {
             var jsonResult = [];
             result.forEach((value,key) => {
                 var data = {
-                    "country" : key,
+                    "value" : key,
                     "count" : value
                 }
                 jsonResult.push(data);

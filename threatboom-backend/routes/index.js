@@ -17,17 +17,17 @@ router.get('/', function (req, res, next) {
 
 // Called by our Feed Component to grab data to reuse later.
 router.get('/feed', function (req, res, next) {
-  if(storedFeedData == undefined || storedFeedData == null) {
+  if(typeof storedFeedData == "undefined" || storedFeedData == null) {
     getFeedData()
     .then((response) => {
-      res.status(200).send();
+      res.status(200).send(storedFeedData);
     })
     .catch((error) => {
       console.log(error);
       res.status(500).send(error);
     })
   } else {
-    res.status(200).send();
+    res.status(200).send(storedFeedData);
   }
 });
 
@@ -100,7 +100,7 @@ function getFeedData() {
             console.log('Done converting csv -> json');
             // Feed comes with 7 rows of headers, so we'll just use the data from 8+
             feedData.splice(0,8)
-            storedFeedData = feedData;
+            storedFeedData = FeedUtils.toJson(feedData);
             topCountryList = FeedUtils.findTopTen(FeedUtils.COUNTRY, feedData);
             topThreatList = FeedUtils.findTopTen(FeedUtils.THREAT, feedData);
             topMalwareList = FeedUtils.findTopTen(FeedUtils.MALWARE, feedData);
@@ -109,6 +109,7 @@ function getFeedData() {
     })
     .catch((error) => {
       console.error(error);
+      res.status(500).send(error);
     });
 }
 

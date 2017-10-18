@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import BarChart from './Components/BarChart';
+import MalwareBarChart from './Components/MalwareBarChart';
+import ThreatsPieChart from './Components/ThreatsPieChart';
 import WorldMap from './Components/WorldMap';
 import RansomwareFeed from './Services/RansomwareFeed'
+import 'react-table/react-table.css'
+
 class App extends Component {
   render() {
     return (
@@ -16,11 +19,21 @@ class App extends Component {
 
         <RansomwareFeed/>
 
+     <div>
+          <ThreatsPieChart/>
+        </div>
+
+
         <div>
         <WorldMap>
           </WorldMap>
         </div>
+        
+        <div>
+          <MalwareBarChart/>
+        </div>
 
+   
       </div>
     );
   }

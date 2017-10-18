@@ -16,7 +16,10 @@
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
     "react-simple-maps": "^0.9.0",
-    "react-tooltip": "3.4.0"
+    "react-svg-piechart": "^1.4.0",
+    "react-table": "^6.6.0",
+    "react-tooltip": "3.4.0",
+    "recharts": "^1.0.0-alpha.6"
   },
   "scripts": {
     "start": "react-scripts start",

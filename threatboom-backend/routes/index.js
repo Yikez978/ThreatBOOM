@@ -4,7 +4,7 @@ var axios = require('axios');
 const csv = require('csvtojson')
 var FeedUtils = require('../FeedUtils')
 var HashMap = require('hashmap');
-
+var fetch = require('node-fetch');
 var topCountryList;
 var topThreatList;
 var topMalwareList;
@@ -24,7 +24,7 @@ router.get('/feed', function (req, res, next) {
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).send(error);
+      res.status(500).send({ error: error });
     })
   } else {
     res.status(200).send(storedFeedData);
@@ -41,7 +41,7 @@ router.get('/threats', function(req, res, next) {
       })
       .catch((error) => {
         console.error(error);
-        res.status(500).send(error);
+        res.status(500).send({ error: error });
       })
   } else {
     res.status(200).send(topThreatList);
@@ -57,7 +57,7 @@ if(topMalwareList == undefined || topMalwareList == null) {
       })
       .catch((error) => {
         console.error(error);
-        res.status(500).send(error);
+        res.status(500).send({ error: error });
       })
   } else {
     res.status(200).send(topMalwareList);
@@ -74,7 +74,7 @@ if(topCountryList == undefined || topCountryList == null) {
       })
       .catch((error) => {
         console.error(error);
-        res.status(500).send(error);
+        res.status(500).send({ error: error });
       })
   } else {
     res.status(200).send(topCountryList);
@@ -82,12 +82,10 @@ if(topCountryList == undefined || topCountryList == null) {
 });
 
 function getFeedData() {
-    return axios({
-    method: 'get',
-    url: 'https://ransomwaretracker.abuse.ch/feeds/csv/'
-  })
+    axios('https://ransomwaretracker.abuse.ch/feeds/csv/')
     .then(function (response) {
       if (!response.data) {
+        console.log("error no feed data");
         res.send(500).send("No data from feed");
       } else {
         let feedData = [];
@@ -109,7 +107,7 @@ function getFeedData() {
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send(error);
+      res.status(500).send({ error: error });
     });
 }
 

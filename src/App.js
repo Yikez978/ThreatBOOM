@@ -4,8 +4,8 @@ import './App.css';
 import MalwareBarChart from './Components/MalwareBarChart';
 import ThreatsPieChart from './Components/ThreatsPieChart';
 import WorldMap from './Components/WorldMap';
-import RansomwareFeed from './Services/RansomwareFeed'
-import 'react-table/react-table.css'
+import RansomwareFeed from './Components/RansomwareFeed'
+
 
 class App extends Component {
   render() {

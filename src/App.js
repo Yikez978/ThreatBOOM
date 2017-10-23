@@ -5,6 +5,7 @@ import MalwareBarChart from './Components/MalwareBarChart';
 import ThreatsPieChart from './Components/ThreatsPieChart';
 import RansomwareFeed from './Components/RansomwareFeed';
 import RansomwareBlurb from './Components/RansomwareBlurb';
+import 'material-components-web/dist/material-components-web.js';
 
 class App extends Component {
   render() {
@@ -14,9 +15,8 @@ class App extends Component {
           <h2>ThreatBoom</h2>
           <h1 className="App-title">A Ransomeware Visualizer</h1>
         </header>
-
         <div className="mdc-layout-grid">
-          <div className="mdc-layout-grid__inner">+
+          <div className="mdc-layout-grid__inner">
             <div className="mdc-layout-grid__cell--span-12 lightthemeBG">
             <RansomwareBlurb />
             </div>
@@ -32,8 +32,7 @@ class App extends Component {
           </div>
         </div>
 
-        <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
-        <script>mdc.autoInit()</script>
+        <script>window.mdc.autoInit()</script>
       </div>
     );
   }

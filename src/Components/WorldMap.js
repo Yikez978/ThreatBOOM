@@ -30,20 +30,18 @@ const cityScale = scaleLinear()
 
 class WorldMap extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       countries: [],
       zoom: 1
     }
-    this.fetchCountries = this.fetchCountries.bind(this)
     this.handleZoomIn = this.handleZoomIn.bind(this)
     this.handleZoomOut = this.handleZoomOut.bind(this)
     this.handleCountryClick = this.handleCountryClick.bind(this)
   }
 
   handleZoomIn() {
-    console.log("zoom in");
     this.setState({
       zoom: this.state.zoom * 2
     })
@@ -55,24 +53,21 @@ class WorldMap extends Component {
   }
 
   componentDidMount() {
-    this.fetchCountries()
-    setTimeout(() => {
-      ReactTooltip.rebuild()
-    }, 100)
+    let ctry = this.props.countries
+    this.setState({
+      countries: ctry
+    })
   }
 
   handleCountryClick(marker, event) {
-    ReactTooltip.show(this.refs.foo)
+    ReactTooltip.show(this.refs.count)
   }
 
-
-  fetchCountries() {
-
-  }
 
   render() {
     return (
         <div style={wrapperStyles}>
+          <h1 className="mdc-typography--headline">Top 10 Countries Hosting Ransomware <span className="mdc-typography--caption">(Country Code - Site Count)</span></h1>
           <ComposableMap
             projectionConfig={{ scale: 205 }}
             width={980}

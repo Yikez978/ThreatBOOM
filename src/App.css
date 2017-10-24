@@ -9,6 +9,10 @@
   background-color: #EDE7F6;
 }
 
+.longText {
+  width: 250px;
+  align-self: left;
+}
 
 .darkthemeBG {
   background-color: #9FA8DA;

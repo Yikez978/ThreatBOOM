@@ -67,12 +67,7 @@ class WorldMap extends Component {
 
 
   fetchCountries() {
-    fetch('/countries')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ countries: data });
-        console.log(this.state.countries);
-      });
+
   }
 
   render() {

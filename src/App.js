@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MalwareBarChart from './Components/MalwareBarChart';
-import ThreatsPieChart from './Components/ThreatsPieChart';
-import RansomwareFeed from './Components/RansomwareFeed';
-import RansomwareBlurb from './Components/RansomwareBlurb';
 import 'material-components-web/dist/material-components-web.js';
+import VisualsContainer from './Components/VisualsContainer';
+
+const wrapperStyles = {
+  width: "100%",
+  maxWidth: 980,
+  margin: "0 auto"
+}
+
 
 class App extends Component {
   render() {
@@ -17,21 +21,9 @@ class App extends Component {
         </header>
         <div className="mdc-layout-grid">
           <div className="mdc-layout-grid__inner">
-            <div className="mdc-layout-grid__cell--span-12 lightthemeBG">
-            <RansomwareBlurb />
-            </div>
-            <div className="mdc-layout-grid__cell--span-12 darkthemeBG">
-            <RansomwareFeed />
-            </div>
-            <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
-              <ThreatsPieChart />
-            </div>
-            <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
-              <MalwareBarChart />
-            </div>
+            <VisualsContainer />
           </div>
         </div>
-
         <script>window.mdc.autoInit()</script>
       </div>
     );

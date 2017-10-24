@@ -23,6 +23,7 @@ class ThreatsPieChart extends Component {
     componentDidMount() {
         let threats = this.props.threats
         let formatData = []
+        let newTotal = 0;
         threats.forEach((item) => {
             formatData.push(
                 {
@@ -30,9 +31,11 @@ class ThreatsPieChart extends Component {
                     "value": item.count,
                 }
             )
-            this.setState({ total: this.state.total + item.count })
+            newTotal += item.count
+            
         })
         this.setState({ threats: formatData })
+        this.setState({ total: newTotal })
     }
 
 handleMouseEnterOnSector(sector) {
@@ -41,6 +44,9 @@ handleMouseEnterOnSector(sector) {
 
 
 render() {
+
+    if(this.state.total <= 0)
+        return null
 
     const data = this.state.threats;
     return (

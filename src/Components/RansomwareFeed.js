@@ -49,6 +49,9 @@ class RansomwareFeed extends Component {
 
     render() {
 
+        if(this.state.feed.length === 0 || this.state.countries.length === 0)
+            return null
+
         const showTable = this.state.isVisible;
         let view = null
         if (showTable) {

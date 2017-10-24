@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import PieChart from "react-svg-piechart"
 import '../App.css';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'

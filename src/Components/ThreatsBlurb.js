@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import PieChart from "react-svg-piechart"
 import '../App.css';
 const definitionStyle = {
     width: '100%',

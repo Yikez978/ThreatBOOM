@@ -3,11 +3,8 @@ import MalwareBarChart from './MalwareBarChart';
 import ThreatsPieChart from './ThreatsPieChart';
 import RansomwareFeed from './RansomwareFeed';
 import RansomwareBlurb from './RansomwareBlurb';
+import ThreatsBlurb from './ThreatsBlurb';
 import '../App.css';
-const wrapperStyles = {
-    width: "100%",
-    margin: "0 auto"
-}
 
 class VisualsContainer extends Component {
 
@@ -25,34 +22,37 @@ class VisualsContainer extends Component {
         fetch('/feed')
             .then(res => res.json())
             .then((data) => {
-                console.log(data.feed);
-                console.log(data.threat);
-                console.log(data.malware);
-                console.log(data.country);
+            if(data !== undefined) {
                 this.setState({
                     feed: data.feed,
                     countries: data.country,
                     malware: data.malware,
                     threats: data.threat
                 })
+            }
             })
     }
 
 
     render() {
+
+        if(this.state.feed.length === 0)
+            return null
+
         return (
-            <div style={wrapperStyles}>
+            <div className="mdc-layout-grid__inner">
                 <div className="mdc-layout-grid__cell--span-12 lightthemeBG">
                     <RansomwareBlurb />
                 </div>
                 <div className="mdc-layout-grid__cell--span-12 darkthemeBG">
-                    <RansomwareFeed countries={this.state.country} feed={this.state.feed}/>
+                    <RansomwareFeed countries={this.state.countries} feed={this.state.feed} />
                 </div>
                 <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
-                    <ThreatsPieChart threats={this.state.threats}/>
+                    <ThreatsPieChart threats={this.state.threats} />
+                    <ThreatsBlurb/>
                 </div>
                 <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
-                    <MalwareBarChart malware={this.state.malware}/>
+                    <MalwareBarChart malware={this.state.malware} />
                 </div>
             </div>
         );

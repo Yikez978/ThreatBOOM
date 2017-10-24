@@ -65,6 +65,11 @@ class WorldMap extends Component {
 
 
   render() {
+
+    if(this.state.countries.length === 0)
+        return null
+
+
     return (
         <div style={wrapperStyles}>
           <h1 className="mdc-typography--headline">Top 10 Countries Hosting Ransomware <span className="mdc-typography--caption">(Country Code - Site Count)</span></h1>
@@ -176,7 +181,7 @@ function getCoordsForCountry(country) {
   switch (country.value) {
     case "US": return { name: 'United States', coordinates: [-76.56631, 39.281049] }
     case "DE": return { name: "Germany", count: country.count,coordinates: [11.00, 51.00] }
-    case "RU": return { name: "Russia", count: country.count,count: country.count,coordinates: [100.00, 60.00] }
+    case "RU": return { name: "Russia", count: country.count, coordinates: [100.00, 60.00] }
     case "NL": return { name: "Netherlands",count: country.count, coordinates: [5.750, 52.500] }
     case "IT": return { name: "Italty", count: country.count, coordinates: [12.8333, 42.8333] }
     case "GB": return { name: "United Kingdom", count: country.count, coordinates: [-2.00, 54.00] }

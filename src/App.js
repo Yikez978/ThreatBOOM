@@ -5,14 +5,16 @@ import MalwareBarChart from './Components/MalwareBarChart';
 import ThreatsPieChart from './Components/ThreatsPieChart';
 import RansomwareFeed from './Components/RansomwareFeed';
 import RansomwareBlurb from './Components/RansomwareBlurb';
+import ThreatsBlurb from './Components/ThreatsBlurb';
 import 'material-components-web/dist/material-components-web.js';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h2>ThreatBoom</h2>
+          <img src="../../res/logo.png" alt="logo" />
           <h1 className="App-title">A Ransomeware Visualizer</h1>
         </header>
         <div className="mdc-layout-grid">
@@ -25,6 +27,7 @@ class App extends Component {
             </div>
             <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
               <ThreatsPieChart />
+              <ThreatsBlurb/>
             </div>
             <div className="mdc-layout-grid__cell--span-6 lightthemeBG">
               <MalwareBarChart />

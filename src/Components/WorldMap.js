@@ -43,7 +43,6 @@ class WorldMap extends Component {
   }
 
   handleZoomIn() {
-    console.log("zoom in");
     this.setState({
       zoom: this.state.zoom * 2
     })
@@ -71,13 +70,13 @@ class WorldMap extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ countries: data });
-        console.log(this.state.countries);
       });
   }
 
   render() {
     return (
         <div style={wrapperStyles}>
+          <h1 className="mdc-typography--headline">Top 10 Countries Hosting Ransomware <span className="mdc-typography--caption">(Country Code - Site Count)</span></h1>
           <ComposableMap
             projectionConfig={{ scale: 205 }}
             width={980}
